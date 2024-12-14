@@ -8,6 +8,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 import os
+import time  # Importing time module
 
 st.set_page_config(page_title="Document Genie", layout="wide")
 
@@ -26,8 +27,6 @@ Follow these simple steps to interact with the chatbot:
 
 3. **Ask a Question**: After processing the documents, ask any question related to the content of your uploaded documents for a precise answer.
 """)
-
-
 
 # This is the first API key input; no need to repeat it in the main function.
 api_key = st.text_input("Enter your Google API Key:", type="password", key="api_key_input")
@@ -74,7 +73,7 @@ def user_input(user_question, api_key):
     chain = get_conversational_chain()
     response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)
     st.write("Reply: ", response["output_text"])
-
+    time.sleep(5)  # Adding a 5-second sleep after responding to the user's query
 
 def main():
     st.header("AI Chatbot💁")
